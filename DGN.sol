@@ -21,6 +21,7 @@ New additions to this contract are pausible. Ideas below -
  - Create seperate mint functions for public mint and whitelist mint (not needed but could be useful).
 ERC1155 Builder
 Created by DGNs
+https://twitter.com/dgn_alpha
 */
 
 pragma solidity ^0.8.0;

@@ -10,18 +10,6 @@
 8 8888        ,88'  `8 8888       .8'  8      `Y8o. `Y8 
 8 8888    ,o88P'       8888     ,88'   8         `Y8o.` 
 8 888888888P'           `8888888P'     8            `Yo 
-
-This is an experimental contract made to build with.
-New additions to this contract are pausible. Ideas below -
- - Make mint payable, add a price variable to TokenInformation struct. Set it while setting supply?
-    make sure to create a withdraw function if doing the above ^
- - Only let contract owner set supply of a given token once(adds transparency).
- - Only let a certain amount of tokens be made (adds transparency).
- - Use merkleroot to set WL instead of the given _setTokenWhitelist function(cheaper gas to WL).
- - Create seperate mint functions for public mint and whitelist mint (not needed but could be useful).
-ERC1155 Builder
-Created by DGNs
-https://twitter.com/dgn_alpha
 */
 
 pragma solidity ^0.8.0;

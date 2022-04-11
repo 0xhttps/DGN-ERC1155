@@ -58,15 +58,14 @@ contract DGN is ERC1155, Ownable {
 
     string public name;
     string public symbol;
-    mapping(uint => TokenInformation) private tokenInfo;
-    mapping(uint => MintInformation) private mintInfo;
-    mapping(address => uint8) private tokenWhitelist;
+    mapping(uint => TokenInformation) public tokenInfo;
+    mapping(uint => MintInformation) public mintInfo;
+    mapping(address => uint) public tokenWhitelist;
     //Limits address to publicMintLimit per token.
     mapping(address => mapping(uint256 => uint256)) private addressData;
 
     ContractStatus private contractStatus = ContractStatus.Paused;
 
-    //Set name and symbol for contract. In theory, this is all that needs to be set pre-deployment.
     constructor() ERC1155("") {
         name = "DGN";
         symbol = "DGN";
@@ -104,6 +103,7 @@ contract DGN is ERC1155, Ownable {
 
     //Sets whitelist for specified token ID.
     function _setTokenWhitelist(address[] calldata addresses, uint8 _id) external onlyOwner {
+        require(tokenInfo[_id].maxSupply != 0, "Cannot set whitelist for token that does not exist.");
         for (uint256 i = 0; i < addresses.length; i++) {
              tokenWhitelist[addresses[i]] = _id;
         }
@@ -125,7 +125,6 @@ contract DGN is ERC1155, Ownable {
     /*Sets mint info of specified token ID.
     Sets mint status (0: Paused, 1: Whitelist, 2: Public) for specified token ID.*/
     function _setMintInfo(uint _id, MintStatus _status) external onlyOwner {
-        //mintInfo[_id].id = _id; -- There is no need for this because mintInfo[_id] is going to be the Pass ID
         mintInfo[_id].status = _status;
     }
    
@@ -149,18 +148,8 @@ contract DGN is ERC1155, Ownable {
         return tokenInfo[_id].currentSupply;
     }
 
-    // If you want to get all Token Information in one call
-    function getTokenInformation(uint _id) public view returns (TokenInformation memory) {
-        return tokenInfo[_id];
-    }
-
     //Returns publice mint limit of specified token ID.
     function getTokenPublicMintLimit (uint _id) public view returns (uint) {
         return mintInfo[_id].publicMintLimit;
-    }
-
-    //Returns true/false if address is whitelisted for specified token ID.
-    function getWhitelistedAddress (uint _id) public view returns (bool) {
-        return tokenWhitelist[msg.sender] == _id;
     }
 }

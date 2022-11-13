@@ -1,6 +1,6 @@
 # DGN-ERC1155
 # Created by DGNs
-# https://twitter.com/dgn_alpha
+# https://twitter.com/dgn_security
 
 This is an experimental contract made to build with.
 Functions included allow you to:
